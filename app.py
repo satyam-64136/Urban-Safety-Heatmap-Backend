@@ -24,8 +24,13 @@ from model import predict_batch
 app = Flask(__name__)
 
 # Restrict CORS to local dev origins only
-from flask_cors import CORS
-CORS(app)
+CORS(app, origins=[
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "null",           # file:// origin in some browsers
+])
 
 
 # ── Cache ─────────────────────────────────────────────────────────────────────
@@ -133,4 +138,8 @@ def predict():
 # ── Entry point ───────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    app.run()
+    print("=" * 55)
+    print("  Dehradun Urban Safety Heatmap — Flask Backend v2")
+    print("  Running at: http://127.0.0.1:5000")
+    print("=" * 55)
+    app.run(debug=True, port=5000)
